@@ -1,6 +1,28 @@
 @import "tailwindcss";
 
-:root {
+@theme {
+  --color-primary-50: #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #2563eb;
+  --color-primary-700: #1d4ed8;
+  --color-secondary: #fbbf24;
+  --color-background: #f9fafb;
+  --color-surface: #ffffff;
+  --color-muted: #6b7280;
+  --color-success: #10b981;
+  --color-danger: #ef4444;
+  --font-sans: inter, sans-serif;
+}
+
+@plugin "@tailwindcss/typography";
+@plugin "@tailwindcss/forms";
+
+body {
+  @apply bg-background text-gray-800 dark:bg-gray-900 dark:text-white;
+}
+
+/* :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -67,4 +89,4 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
-}
+} */
