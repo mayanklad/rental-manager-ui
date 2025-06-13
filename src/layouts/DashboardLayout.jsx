@@ -37,7 +37,7 @@ export default function DashboardLayout() {
       </aside>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col md:ml-64">
+      <div className="flex-1 flex flex-col">{/* md:ml-64">*/}
         {/* Topbar */}
         <header className="bg-white dark:bg-gray-800 shadow px-4 py-3 flex items-center justify-between md:hidden">
           <button onClick={() => setIsOpen(true)}><Menu /></button>
