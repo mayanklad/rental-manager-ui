@@ -1,11 +1,11 @@
-import axios from 'axios'
+import axios from '~/api/axiosInstance'
 
-const API_URL = 'http://localhost:8080/api/property'
+const MAPPING = '/property'
 
 // Get all properties
 export const getAllProperties = async () => {
   try {
-    const response = await axios.get(API_URL)
+    const response = await axios.get(MAPPING)
     return response.data
   } catch (error) {
     console.error('Error fetching properties', error)
@@ -16,7 +16,7 @@ export const getAllProperties = async () => {
 // Get a property by ID
 export const getPropertyById = async (id) => {
   try {
-    const response = await axios.get(`${API_URL}/${id}`)
+    const response = await axios.get(`${MAPPING}/${id}`)
     return response.data
   } catch (error) {
     console.error(`Error fetching property with id ${id}`, error)
@@ -27,9 +27,7 @@ export const getPropertyById = async (id) => {
 // Create a new property
 export const createProperty = async (propertyData) => {
   try {
-    console.log('debug variable print')
-    console.log(propertyData)
-    const response = await axios.post(API_URL, propertyData)
+    const response = await axios.post(MAPPING, propertyData)
     return response.data
   } catch (error) {
     console.error('Error creating property', error)
@@ -40,7 +38,7 @@ export const createProperty = async (propertyData) => {
 // Update an existing property
 export const updateProperty = async (id, propertyData) => {
   try {
-    const response = await axios.put(`${API_URL}/${id}`, propertyData)
+    const response = await axios.put(`${MAPPING}/${id}`, propertyData)
     return response.data
   } catch (error) {
     console.error(`Error updating property with id ${id}`, error)
@@ -51,7 +49,7 @@ export const updateProperty = async (id, propertyData) => {
 // Delete a property
 export const deleteProperty = async (id) => {
   try {
-    await axios.delete(`${API_URL}/${id}`)
+    await axios.delete(`${MAPPING}/${id}`)
   } catch (error) {
     console.error(`Error deleting property with id ${id}`, error)
     throw error
