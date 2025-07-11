@@ -1,4 +1,4 @@
-import { Link, NavLink, Outlet } from 'react-router-dom'
+import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
 import { useState } from 'react'
 
@@ -9,11 +9,18 @@ const navItems = [
   { path: "/leases", label: "Leases" },
   { path: "/payments", label: "Payments" },
   { path: "/maintenance", label: "Maintenance" },
-];
+]
 
 export default function DashboardLayout() {
-  const [isOpen, setIsOpen] = useState(false);
 
+  const [isOpen, setIsOpen] = useState(false)
+  const location = useLocation()
+  
+  const activeNavItem = navItems.find(item => 
+    item.path === location.pathname ||
+    (item.path !== "/" && location.pathname.startsWith(item.path))
+  )
+  
   return (
     <div className="flex h-screen">
       {/* Sidebar */}
@@ -36,18 +43,20 @@ export default function DashboardLayout() {
         ))}
       </aside>
 
-      {/* Main Content */}
       <div className="flex-1 flex flex-col">{/* md:ml-64">*/}
-        {/* Topbar */}
+        {/* Mobile Topbar */}
         <header className="bg-white dark:bg-gray-800 shadow px-4 py-3 flex items-center justify-between md:hidden">
           <button onClick={() => setIsOpen(true)}><Menu /></button>
-          <h2 className="text-lg font-semibold">Dashboard</h2>
+          <h2 className="text-lg font-semibold">
+            {activeNavItem ? activeNavItem.label : "Dashboard"}
+          </h2>
         </header>
 
+        {/* Main Content */}
         <main className="flex-1 p-6 bg-background dark:bg-gray-900 text-gray-800 dark:text-gray-100 overflow-auto">
           <Outlet />
         </main>
       </div>
     </div>
-  );
+  )
 }
