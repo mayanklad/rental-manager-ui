@@ -33,6 +33,7 @@ export default function DashboardLayout() {
           <NavLink
             key={item.path}
             to={item.path}
+            onClick={() => setIsOpen(false)}
             className={({ isActive }) =>
               `block px-3 py-2 rounded text-sm font-medium ${isActive ? "bg-primary-100 text-primary-700" : "text-gray-600 hover:bg-gray-100"}`
             }
