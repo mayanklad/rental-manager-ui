@@ -1,20 +1,37 @@
-import Button from '~/components/ui/Button'
-
 export default function PropertyList({ properties, onEdit, onDelete }) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {properties.map((prop) => (
         <div
           key={prop.id}
-          className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow space-y-2"
+          className="h-full p-6 flex flex-col space-y-3 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 transition-transform hover:scale-102"
         >
-          <h2 className="text-lg font-semibold">{prop.name}</h2>
-          <p className="text-sm text-gray-500">Address: {prop.address}</p>
-          <p className="text-sm text-gray-500">Type: {prop.type}</p>
-          <p className="text-sm text-gray-500">Description: {prop.description}</p>
-          <div className="flex gap-2 pt-2">
-            <Button label="Edit" type="secondary" onClick={() => onEdit(prop)}>Edit</Button>
-            <Button label="Delete" type="danger" onClick={() => onDelete(prop.id)}>Delete</Button>
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+            {prop.name}
+          </h2>
+          <p className="text-gray-600 dark:text-gray-400">
+            <span className="font-medium text-gray-700 dark:text-gray-300">Address:</span> {prop.address}
+          </p>
+          <p className="text-gray-600 dark:text-gray-400">
+            <span className="font-medium text-gray-700 dark:text-gray-300">Type:</span> {prop.type}
+          </p>
+          <p className="text-gray-600 dark:text-gray-400">
+            <span className="font-medium text-gray-700 dark:text-gray-300">Description:</span> {prop.description}
+          </p>
+
+          <div className="flex gap-4 pt-4 mt-auto">
+            <button
+              onClick={() => onEdit(prop)}
+              className="px-3 py-1 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 transition"
+            >
+              Edit
+            </button>
+            <button
+              onClick={() => onDelete(prop.id)}
+              className="px-3 py-1 bg-red-600 text-white rounded-md hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 transition"
+            >
+              Delete
+            </button>
           </div>
         </div>
       ))}

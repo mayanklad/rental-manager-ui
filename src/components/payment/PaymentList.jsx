@@ -1,57 +1,46 @@
-import Button from '~/components/ui/Button'
-
 export default function PaymentList({ payments, onEdit, onDelete }) {
-
   return (
-    <div className="overflow-x-auto shadow-md rounded-xl bg-white dark:bg-gray-800">
-      <table className="min-w-full text-center">
-        <thead className="bg-gray-100 dark:bg-gray-700 rounded-t-xl text-lg font-semibold">
-          <tr className='border-b border-gray-200 dark:border-gray-600'>
-            <th className="px-4 py-3 text-gray-700">ID</th>
-            <th className="px-4 py-3 text-gray-700">Date</th>
-            <th className="px-4 py-3 text-gray-700">Lease / Property</th>
-            <th className="px-4 py-3 text-gray-700">Tenants</th>
-            <th className="px-4 py-3 text-gray-700">Amount ($)</th>
-            <th className="px-4 py-3 text-gray-700 text-right">Actions</th>
-          </tr>
-        </thead>
-        <tbody className='divide-y divide-gray-200 dark:divide-gray-600'>
-          {payments.map((p) => {
-            return (
-              <tr
-                key={p.id}
-                className='bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors '
+    <table className="min-w-full text-left bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 transition-transform hover:scale-102">
+      <thead className="uppercase text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700">
+        <tr>
+          <th className="px-4 py-3">ID</th>
+          <th className="px-4 py-3">Date</th>
+          <th className="px-4 py-3">Lease / Property</th>
+          <th className="px-4 py-3">Tenants</th>
+          <th className="px-4 py-3">Amount ($)</th>
+          <th className="px-4 py-3 text-right">Actions</th>
+        </tr>
+      </thead>
+      <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+        {payments.map((p) => (
+          <tr
+            key={p.id}
+            className="transition-colors hover:bg-gray-100 dark:hover:bg-gray-700"
+          >
+            <td className="px-4 py-3">{p.id}</td>
+            <td className="px-4 py-3">{p.payment_date}</td>
+            <td className="px-4 py-3">
+              #{p.lease_id} • {p.property_id || 'Property'}
+            </td>
+            <td className="px-4 py-3">{p.tenant_ids || 'All tenants'}</td>
+            <td className="px-4 py-3">$ {p.amount.toFixed(2)}</td>
+            <td className="px-4 py-3 flex justify-end gap-4">
+              <button
+                onClick={() => onEdit(p)}
+                className="px-3 py-1 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 transition"
               >
-                <td className="px-4 py-3">{p.id}</td>
-                <td className="px-4 py-3">{p.payment_date}</td>
-                <td className="px-4 py-3">
-                  #{p.lease_id} • {p.property_id || 'Property'}
-                </td>
-                <td className="px-4 py-3">{p.tenant_ids || 'All tenants'}</td>
-                <td className="px-4 py-3">{p.amount.toFixed(2)}</td>
-                <td className="px-4 py-3">
-                  <div className="flex justify-end gap-2">
-                    <Button
-                      label="Edit"
-                      type="secondary"
-                      onClick={() => onEdit(p)}
-                    >
-                      Edit
-                    </Button>
-                    <Button
-                      label="Delete"
-                      type="danger"
-                      onClick={() => onDelete(p.id)}
-                    >
-                      Delete
-                    </Button>
-                  </div>
-                </td>
-              </tr>
-            )
-          })}
-        </tbody>
-      </table>
-    </div>
+                Edit
+              </button>
+              <button
+                onClick={() => onDelete(p.id)}
+                className="px-3 py-1 bg-red-600 text-white rounded-md hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 transition"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   )
 }

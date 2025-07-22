@@ -1,20 +1,18 @@
 import { useEffect, useState } from 'react'
 import { getAllProperties } from '~/api/propertyApi'
 import { getAllTenants } from '~/api/tenantApi'
-import Button from '~/components/ui/Button'
 
 export default function MaintenanceForm({ initialData, onSave, onCancel }) {
-  
   const [formData, setFormData] = useState(
-    initialData ||
-    {
+    initialData || {
       tenant_id: '',
       property_id: '',
       title: '',
       description: '',
       status: '',
-  })
-  
+    }
+  )
+
   const [properties, setProperties] = useState([])
   const [tenants, setTenants] = useState([])
 
@@ -33,103 +31,129 @@ export default function MaintenanceForm({ initialData, onSave, onCancel }) {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow space-y-4"
-    >
-      <h2 className="text-xl font-bold">
-        {initialData ? 'Edit Maintenance Request' : 'New Maintenance Request'}
-      </h2>
+    <div className="fixed inset-0 z-50 p-4 flex items-center justify-center bg-black bg-opacity-50">
+      <form
+        onSubmit={handleSubmit}
+        className="p-6 space-y-6 bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700"
+      >
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+          {initialData ? 'Edit Maintenance Request' : 'New Maintenance Request'}
+        </h2>
 
-      <label className="block mb-2">
-        Property
-        <select
-          name="property_id"
-          value={formData.property_id}
-          onChange={handleChange}
-          // value={selectedpropertyId}
-          // onChange={(e) => setSelectedPropertyId(e.target.value)}
-          required
-          className="block w-full mt-1 border rounded px-3 py-2"
-        >
-          <option value="">-- Select Property --</option>
-          {properties.map((property) => (
-            <option key={property.id} value={property.id}>
-              {property.name}
-            </option>
-          ))}
-        </select>
-      </label>
+        <div className="space-y-4">
+          {/* Property */}
+          <div className="space-y-2">
+            <label className="block font-medium text-gray-700 dark:text-gray-300">
+              Property <span className="text-red-500">*</span>
+            </label>
+            <select
+              name="property_id"
+              id="property_id"
+              value={formData.property_id}
+              onChange={handleChange}
+              required
+              className="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400"
+            >
+              <option value="">-- Select Property --</option>
+              {properties.map((p) => (
+                <option key={p.id} value={p.id}>
+                  {p.name}
+                </option>
+              ))}
+            </select>
+          </div>
 
-      <label className="block mb-2">
-        Tenant
-        <select
-          name="tenant_id"
-          value={formData.tenant_id}
-          onChange={handleChange}
-          // value={selectedtenantId}
-          // onChange={(e) => setSelectedTenantId(e.target.value)}
-          required
-          className="block w-full mt-1 border rounded px-3 py-2"
-        >
-          <option value="">-- Select Tenant --</option>
-          {tenants.map((tenant) => (
-            <option key={tenant.id} value={tenant.id}>
-              {tenant.full_name}
-            </option>
-          ))}
-        </select>
-      </label>
+          {/* Tenant */}
+          <div className="space-y-2">
+            <label className="block font-medium text-gray-700 dark:text-gray-300">
+              Tenant <span className="text-red-500">*</span>
+            </label>
+            <select
+              name="tenant_id"
+              id="tenant_id"
+              value={formData.tenant_id}
+              onChange={handleChange}
+              required
+              className="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400"
+            >
+              <option value="">-- Select Tenant --</option>
+              {tenants.map((t) => (
+                <option key={t.id} value={t.id}>
+                  {t.full_name}
+                </option>
+              ))}
+            </select>
+          </div>
 
-      <label className='block mb-2'>
-        Title
-        <input
-          type='text'
-          name='title'
-          value={formData.title}
-          onChange={handleChange}
-          required
-          className='block mt-1 w-full border px-3 py-2 rounded'
-        />
-      </label>
+          {/* Title */}
+          <div className="space-y-2">
+            <label className="block font-medium text-gray-700 dark:text-gray-300">
+              Title <span className="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              name="title"
+              id="title"
+              value={formData.title}
+              onChange={handleChange}
+              required
+              className="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400"
+            />
+          </div>
 
-      <label className='block mb-2'>
-        Description
-        <textarea
-          name='description'
-          value={formData.description}
-          onChange={handleChange}
-          required
-          className='block mt-1 w-full border px-3 py-2 rounded resize-y'
-        />
-      </label>
+          {/* Description */}
+          <div className="space-y-2">
+            <label className="block font-medium text-gray-700 dark:text-gray-300">
+              Description
+            </label>
+            <textarea
+              name="description"
+              id="description"
+              value={formData.description}
+              onChange={handleChange}
+              rows={4}
+              className="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400"
+            />
+          </div>
 
-      <label className='block mb-2'>
-        Status
-        <select
-          name='status'
-          value={formData.status}
-          onChange={handleChange}
-          required
-          className='block mt-1 w-full border px-3 py-2 rounded'
-        >
-          <option value="">-- Select Status --</option>
-          <option key='OPEN' value='OPEN'>Open</option>
-          <option key='IN_PROGRESS' value='IN_PROGRESS'>In Progress</option>
-          <option key='RESOLVED' value='RESOLVED'>Resolved</option>
-        </select>
-      </label>
+          {/* Status */}
+          <div className="space-y-2">
+            <label className="block font-medium text-gray-700 dark:text-gray-300">
+              Status <span className="text-red-500">*</span>
+            </label>
+            <select
+              name="status"
+              id="status"
+              value={formData.status}
+              onChange={handleChange}
+              required
+              className="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400"
+            >
+              <option value="">-- Select Status --</option>
+              <option value="OPEN">Open</option>
+              <option value="IN_PROGRESS">In Progress</option>
+              <option value="RESOLVED">Resolved</option>
+            </select>
+          </div>
+        </div>
 
-      <div className='flex gap-4 pt-4'>
-        <Button
-          label='Cancel'
-          type='ghost'
-          onClick={onCancel}
-        >
-          Cancel
-        </Button>
-        <Button label='Save'>Save</Button>
-      </div>
-    </form>
+        {/* Buttons */}
+        <div className="flex gap-4 pt-6 justify-end">
+          <button
+            type="button"
+            onClick={onCancel}
+            className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md dark:bg-gray-700 dark:text-white transition hover:bg-gray-300 dark:hover:bg-gray-600"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            className="px-4 py-2 bg-indigo-600 text-white rounded-md dark:bg-indigo-500 transition hover:bg-indigo-700 dark:hover:bg-indigo-600"
+          >
+            Save
+          </button>
+        </div>
+      </form>
+    </div>
   )
 }

@@ -4,7 +4,6 @@ import { createLease } from '~/api/leaseApi'
 import TenantList from '~/components/tenant/TenantList'
 import TenantForm from '~/components/tenant/TenantForm'
 import AssignLeaseModal from '~/components/tenant/AssignLeaseModal'
-import Button from '~/components/ui/Button'
 
 export default function Tenants() {
   const [tenants, setTenants] = useState([])
@@ -36,16 +35,21 @@ export default function Tenants() {
   }
 
   return (
-    <div className='space-y-8'>
+    <div className="space-y-10">
       {/* Heading */}
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-primary-700 dark:text-primary-300">
+        <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
           Manage Tenants
         </h1>
-        <Button label="Add Tenant" onClick={() => setShowForm(true)}>Add Tenant</Button>
+        <button
+          onClick={() => setShowForm(true)}
+          className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 transition"
+        >
+          Add Tenant
+        </button>
       </div>
 
-
+      {/* Tenant List */}
       <TenantList
         tenants={tenants}
         onAssignLease={(tenant) => {
@@ -54,7 +58,7 @@ export default function Tenants() {
         }}
       />
 
-
+      {/* Tenant Form */}
       {showForm && (
         <TenantForm
           onCancel={() => setShowForm(false)}
@@ -62,7 +66,7 @@ export default function Tenants() {
         />
       )}
 
-
+      {/* Lease Assignment Modal */}
       {showLeaseModal && selectedTenant && (
         <AssignLeaseModal
           tenant={selectedTenant}

@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { isBackendUp } from '~/api/healthApi'
 
 export default function BackendLoader({ children }) {
-  
   const [ready, setReady] = useState(false)
 
   const messages = [
@@ -30,7 +29,7 @@ export default function BackendLoader({ children }) {
     const poll = async () => {
       const up = await isBackendUp()
       console.debug('Backend is up:', up)
-      
+
       if (up && !cancelled) setReady(true)
       else if (!cancelled) setTimeout(poll, 2000)
     }
@@ -42,13 +41,13 @@ export default function BackendLoader({ children }) {
   if (ready) return children
 
   return (
-    <div className="fixed inset-0 flex flex-col items-center justify-center bg-white dark:bg-gray-950 z-50">
-      <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-6">
+    <div className="fixed inset-0 flex flex-col items-center justify-center px-4 text-center bg-white dark:bg-gray-900 z-50">
+      <h2 className="text-lg sm:text-xl md:text-2xl font-medium mb-6 text-gray-700 dark:text-gray-200">
         {messages[Math.floor(Math.random() * messages.length)]}
       </h2>
 
-      <div className="w-56 h-2 bg-gray-200 dark:bg-gray-800 overflow-hidden rounded">
-        <div className="h-full bg-blue-600 dark:bg-blue-400 animate-loading-bar" />
+      <div className="w-full max-w-xs h-2 bg-gray-200 dark:bg-gray-700 rounded overflow-hidden">
+        <div className="h-full bg-indigo-600 dark:bg-indigo-500 animate-loading-bar" />
       </div>
     </div>
   )

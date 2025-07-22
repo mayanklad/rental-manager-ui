@@ -7,7 +7,6 @@ import {
 } from '~/api/paymentApi'
 import PaymentList from '~/components/payment/PaymentList'
 import PaymentForm from '~/components/payment/PaymentForm'
-import Button from '~/components/ui/Button'
 
 export default function Payments() {
 
@@ -43,13 +42,17 @@ export default function Payments() {
   }
 
   return (
-    <div className="space-y-8">
-      {/* Heading */}
+    <div className="space-y-10">
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-primary-700 dark:text-primary-300">
+        <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
           Manage Rent Payments
         </h1>
-        <Button label="Add Payment" onClick={() => setShowForm(true)}>Add Payment</Button>
+        <button
+          onClick={() => setShowForm(true)}
+          className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 transition"
+        >
+          Add Payment
+        </button>
       </div>
 
       <PaymentList

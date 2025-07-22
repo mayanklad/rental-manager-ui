@@ -7,21 +7,20 @@ import {
 } from '~/api/leaseApi'
 import LeaseList from '~/components/lease/LeaseList'
 import LeaseForm from '~/components/lease/LeaseForm'
-import Button from '~/components/ui/Button'
 
 export default function Leases() {
   const [leases, setLeases] = useState([])
   const [editingLease, setEditingLease] = useState(null)
   const [showForm, setShowForm] = useState(false)
 
-  useEffect(() => {
-    fetchLeases()
-  }, [])
-
   const fetchLeases = async () => {
     const data = await getAllLeases()
     setLeases(data)
   }
+
+  useEffect(() => {
+    fetchLeases()
+  }, [])
 
   const handleSave = async (formData) => {
     if (editingLease) {
@@ -35,26 +34,30 @@ export default function Leases() {
   }
 
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this lease?")) {
+    if (window.confirm('Are you sure you want to delete this lease?')) {
       await deleteLease(id)
       fetchLeases()
     }
   }
 
   return (
-    <div className="space-y-8">
-      {/* Heading */}
+    <div className="space-y-10">
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-primary-700 dark:text-primary-300">
+        <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
           Manage Leases
         </h1>
-        <Button label="Add Lease" onClick={() => setShowForm(true)}>Add Lease</Button>
+        <button
+          onClick={() => setShowForm(true)}
+          className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 transition"
+        >
+          Add Lease
+        </button>
       </div>
 
       <LeaseList
         leases={leases}
-        onEdit={(prop) => {
-          setEditingLease(prop)
+        onEdit={(lease) => {
+          setEditingLease(lease)
           setShowForm(true)
         }}
         onDelete={handleDelete}
@@ -62,7 +65,7 @@ export default function Leases() {
 
       {showForm && (
         <LeaseForm
-          initialData={editingLease}
+          lease={editingLease}
           onSave={handleSave}
           onCancel={() => {
             setShowForm(false)

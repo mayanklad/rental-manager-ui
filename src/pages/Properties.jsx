@@ -7,7 +7,6 @@ import {
 } from '~/api/propertyApi'
 import PropertyList from '~/components/property/PropertyList'
 import PropertyForm from '~/components/property/PropertyForm'
-import Button from '~/components/ui/Button'
 
 export default function Properties() {
   const [properties, setProperties] = useState([])
@@ -42,13 +41,18 @@ export default function Properties() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       {/* Heading */}
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-primary-700 dark:text-primary-300">
+        <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
           Manage Properties
         </h1>
-        <Button label="Add Property" onClick={() => setShowForm(true)}>Add Property</Button>
+        <button
+          onClick={() => setShowForm(true)}
+          className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 transition"
+        >
+          Add Property
+        </button>
       </div>
 
       <PropertyList
